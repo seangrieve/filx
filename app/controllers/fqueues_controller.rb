@@ -8,11 +8,10 @@ class FqueuesController < ApplicationController
     end
   end
 
-  def update
-    # Create an order array that has the entry ids in the 
-    # new sort order. sort_order is passed in as a string of
-    # ids separated by commas.
-    order = params[:sort_order].split(',')
+  def edit
+    # Get the sort order array parameter that has the entry ids in 
+    # the order that the user selected.
+    order = params[:sort_order]
 
     # Loop through the order array and update the sort column for 
     # each entry row.
@@ -24,8 +23,10 @@ class FqueuesController < ApplicationController
       entry.save
     end
 
-    render 'show'
+    render :nothing => true
   end
+
+  private
 
   def find_q
     @q = Fqueue.find(params[:id])

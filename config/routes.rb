@@ -6,7 +6,7 @@ Flix::Application.routes.draw do
   get "fqueues/index"
 
   resources :fqueues
-
+    
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

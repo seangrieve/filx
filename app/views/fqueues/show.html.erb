@@ -1,20 +1,22 @@
-<h1>My Queue</h1>
+<h1>My Flix Queue</h1>
 <h2><%=@q.name%></h2>
-<%= form_for(@q) do |f| %>
-<ul id="queue">
+<ul id="queue_list">
   <% @q.entries.each do |entry| %>
   <li id="<%=entry.id%>"><div class="handle">H</div><%=entry.title%></li>
   <% end %>
 </ul>
-<input type="text" id="sort_order" name="sort_order" value="" />
-<%= f.submit %>
-<% end %>
 <script>
   $(document).ready(function() { 
-    $('#queue').sortable( { 
+    // set sortable property on the queue list
+    $('#queue_list').sortable( { 
         handle: ".handle",
         update: function() {
-          $('#sort_order').val($('#queue').sortable('toArray'));
+          var sort_order_array = $('#queue_list').sortable('toArray');
+          $.get('<%= url_for :controller => 'fqueues', :action => 'edit', :id => @q %>', 
+                { sort_order: sort_order_array },
+                function() {
+                  alert('saved your changes'); }
+                );
         }
       }).disableSelection();
   });
