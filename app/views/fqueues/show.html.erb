@@ -1,23 +1,27 @@
 <h1>My Flix Queue</h1>
 <h2><%=@q.name%></h2>
-<ul id="queue_list">
+<ul id="queue-list">
   <% @q.entries.each do |entry| %>
-  <li id="<%=entry.id%>"><div class="handle">H</div><%=entry.title%></li>
+  <li id="<%=entry.id%>" class="entry ui-state-default"><span class="ui-icon ui-icon-grip-dotted-vertical"></span><%=entry.title%></li>
   <% end %>
 </ul>
 <script>
   $(document).ready(function() { 
     // set sortable property on the queue list
-    $('#queue_list').sortable( { 
-        handle: ".handle",
+    $('#queue-list').sortable( { 
         update: function() {
-          var sort_order_array = $('#queue_list').sortable('toArray');
+          var sort_order_array = $('#queue-list').sortable('toArray');
           $.get('<%= url_for :controller => 'fqueues', :action => 'edit', :id => @q %>', 
                 { sort_order: sort_order_array },
                 function() {
-                  alert('saved your changes'); }
-                );
+                  showMessage('Saved your changes'); 
+                }
+               );
         }
       }).disableSelection();
   });
+
+  function showMessage(text) {
+    $('#message').html(text).fadeIn('slow', function() { $(this).fadeOut(); });
+  }
 </script>

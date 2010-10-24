@@ -1,0 +1,23 @@
+<h1>My Flix Queue</h1>
+<h2><%=@q.name%></h2>
+<ul id="queue_list">
+  <% @q.entries.each do |entry| %>
+  <li id="<%=entry.id%>" class="entry"><span class="handle ui-icon ui-icon-grip-dotted-vertical"></span><%=entry.title%></li>
+  <% end %>
+</ul>
+<script>
+  $(document).ready(function() { 
+    // set sortable property on the queue list
+    $('#queue_list').sortable( { 
+        handle: ".handle",
+        update: function() {
+          var sort_order_array = $('#queue_list').sortable('toArray');
+          $.get('<%= url_for :controller => 'fqueues', :action => 'edit', :id => @q %>', 
+                { sort_order: sort_order_array },
+                function() {
+                  alert('saved your changes'); }
+                );
+        }
+      }).disableSelection();
+  });
+</script>

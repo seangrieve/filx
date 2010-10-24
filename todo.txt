@@ -1,5 +1,2 @@
-- Style
 - Add delete box
-- Add default url that redirects to /fqueues/2
-- Seed data
 - Add entry 

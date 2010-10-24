@@ -1,6 +1,13 @@
 class FqueuesController < ApplicationController
-  before_filter :find_q
+  before_filter :find_q, :except => 'index'
 
+  # Get the first Fqueue object
+  def index
+    @q = Fqueue.find(:first)
+    render 'show'
+  end
+
+  # Show the Fqueue object with the given id
   def show
     respond_to do |format|
       format.html
@@ -8,6 +15,7 @@ class FqueuesController < ApplicationController
     end
   end
 
+  # Action to update the Fqueue's entry sort order from a GET request
   def edit
     # Get the sort order array parameter that has the entry ids in 
     # the order that the user selected.
@@ -23,12 +31,15 @@ class FqueuesController < ApplicationController
       entry.save
     end
 
+    # Since this action is called through ajax and we don't need to 
+    # return any data, render nothing
     render :nothing => true
   end
 
   private
 
+  # Filter method to set the @q attribute to the Fqueue with the current id. 
   def find_q
-    @q = Fqueue.find(params[:id])
+      @q = Fqueue.find(params[:id])
   end
 end

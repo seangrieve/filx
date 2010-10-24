@@ -1,0 +1,27 @@
+body {
+  font-family:sans-serif;
+}
+
+#message {
+  padding-top: 25px;
+  display: none;
+  color: red;
+}
+
+#queue-list {
+  list-style-type: none; 
+  margin: 0; 
+  padding: 0;
+  width: 75%;
+}
+
+#queue-list li { 
+  margin: 3px 3px 3px 3px;
+  padding: 5px 5px 5px 20px;
+  height: 15px; 
+}
+
+#queue-list li span { 
+  position: absolute; 
+  margin-left: -1.3em;
+}
